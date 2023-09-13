@@ -1,0 +1,44 @@
+version: '3'
+  services:
+    gateway:
+      build: ./gateway
+      restart: always
+      hostname: gateway
+      env_file:
+        - .env
+      ports:
+        - ${BACKEND_GATEWAY_PORT}:${BACKEND_GATEWAY_PORT}
+      networks:
+        - backend
+    user:
+      build: ./user
+      restart: always
+      hostname: user
+      env_file:
+        - .env
+      ports:
+        - ${BACKEND_USER_PORT}:${BACKEND_USER_PORT}
+      networks:
+        - backend
+    document:
+      build: ./document
+      restart: always
+      hostname: document
+      env_file:
+        - .env
+      ports:
+        - ${BACKEND_DOCUMENT_PORT}:${BACKEND_DOCUMENT_PORT}
+      networks:
+        - backend
+    postgres:
+      image: postgres:15
+      environment:
+        POSTGRES_DB: ${POSTGRES_DB_NAME}
+        POSTGRES_USER: ${POSTGRES_DB_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_DB_ROOT}
+      ports:
+        - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
+
+  networks:
+    backend:
+      driver: bridge
