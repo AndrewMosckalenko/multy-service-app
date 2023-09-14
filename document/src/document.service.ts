@@ -31,23 +31,34 @@ export class DocumentService {
             return this.documentRepository.findOneBy({ id });
         }
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    getDocumentWithParagraphsById(id: number) {
+    async getDocumentWithParagraphsById(id: number) {
         try {
-            return this.documentRepository.findOne({ join: {
-                alias: 'document',
-                leftJoinAndSelect: {
-                    paragraph: 'document.paragraphs',
+            const document = await this.documentRepository.findOne({ 
+                join: {
+                    alias: 'document',
+                    leftJoinAndSelect: {
+                        paragraph: 'document.paragraphs',
+                    },
                 },
-            },
-            where: { id },
-        });
+                where: { id },
+            });
+            return document;
         }   
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    getDocuments() {
+        try {
+            return this.documentRepository.find();
+        }   
+        catch(e) {
+            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

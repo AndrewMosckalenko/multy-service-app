@@ -16,6 +16,11 @@ export class DocumentController {
         return this.client.send('document_add_paragraph', {...body, documentId: id});
     }
 
+    @Get()
+    getDocuments() {
+        return this.client.send('document_get_all', {});
+    }
+
     @Get('/:id')
     getDocumentById(@Param('id') id) {
         return this.client.send('document_get_by_id', id);

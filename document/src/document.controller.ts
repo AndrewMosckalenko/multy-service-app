@@ -32,4 +32,9 @@ export class DocumentController {
     getDocumentWithParagraphsById(id: number) {
         return this.documentService.getDocumentWithParagraphsById(id);
     }
+
+    @MessagePattern('document_get_all')
+    getAllDocuments() {
+        return this.documentService.getDocuments();
+    }
 }
