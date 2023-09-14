@@ -34,4 +34,20 @@ export class DocumentService {
             throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
         }
     }
+
+    getDocumentWithParagraphsById(id: number) {
+        try {
+            return this.documentRepository.findOne({ join: {
+                alias: 'document',
+                leftJoinAndSelect: {
+                    paragraph: 'document.paragraphs',
+                },
+            },
+            where: { id },
+        });
+        }   
+        catch(e) {
+            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

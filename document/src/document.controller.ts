@@ -27,4 +27,9 @@ export class DocumentController {
     addParagraphToDocument(createParagraphDto: ICreateParagraphDTO) {
         return this.paragraphService.createParagraph(createParagraphDto);
     }
+
+    @MessagePattern('document_get_by_id_with_paragraphs')
+    getDocumentWithParagraphsById(id: number) {
+        return this.documentService.getDocumentWithParagraphsById(id);
+    }
 }

@@ -21,5 +21,9 @@ export class DocumentController {
         return this.client.send('document_get_by_id', id);
     }
 
+    @Get('/:id/paragraphs')
+    getDocumentWithParagraphsById(@Param('id') id) {
+        return this.client.send('document_get_by_id_with_paragraphs', id);
+    }
 }
 
