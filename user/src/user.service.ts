@@ -5,11 +5,15 @@ import { User } from './entities/user.entity';
 import { ICreateUserDTO } from './dto/user';
 import { validateUserCreateDTO } from './utils';
 import { USER_ALREADY_EXIST_MESSAGE } from './constants';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserService {
 
-    constructor(private userRepository: Repository<User>) {}
+    constructor(
+        @InjectRepository(User)
+        private userRepository: Repository<User>
+    ) {}
 
     async createUser(newUser: ICreateUserDTO) {
         try {
