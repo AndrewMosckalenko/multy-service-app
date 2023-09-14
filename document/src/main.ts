@@ -8,6 +8,10 @@ async function bootstrap() {
     DocumentModule,
     {
       transport: Transport.TCP,
+      options: {
+        host: '0.0.0.0',
+        port: Number(process.env.BACKEND_DOCUMENT_PORT),
+      },
     },
   );
   await app.listen();

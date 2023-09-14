@@ -1,0 +1,1 @@
+export { ICreateParagraphDTO } from './create-paragraph-dto';
