@@ -18,9 +18,6 @@ export class UserService {
     async createUser(newUser: ICreateUserDTO) {
         try {
             validateUserCreateDTO(newUser);
-
-            const userByEmail = await this.getUserByEmail(newUser.email);
-            if(userByEmail) { throw new Error(USER_ALREADY_EXIST_MESSAGE); }
             
             const user = await this.userRepository.create(newUser);
             await this.userRepository.save(user);

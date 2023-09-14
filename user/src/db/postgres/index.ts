@@ -10,4 +10,5 @@ export const postgresOptions: TypeOrmModuleOptions = {
     password: process.env.POSTGRES_DB_PASS,
     database: process.env.POSTGRES_DB_NAME,
     entities: [User],
+    synchronize: true,
 };
