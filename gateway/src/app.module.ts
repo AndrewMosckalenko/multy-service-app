@@ -8,8 +8,8 @@ import { documentTcpProvider, userTcpProvider } from './tcp-client-providers';
 @Module({
   imports: [
     ClientsModule.register([
-      { name: userTcpProvider.provide, transport: Transport.TCP },
-      { name: documentTcpProvider.provide, transport: Transport.TCP },
+      { name: 'USER_SERVICE', transport: Transport.TCP },
+      { name: 'DOCUMENT_SERVICE', transport: Transport.TCP },
   ]),],
   controllers: [UserController, DocumentController],
   providers: [

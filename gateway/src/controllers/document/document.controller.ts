@@ -1,6 +1,17 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { ApiTags } from '@nestjs/swagger';
 
+import { sendRequestToMicroservice } from '../../utils';
+import { 
+    DOCUMENT_ADD_PARAGRAPH_MESSAGE_PATTERN, 
+    DOCUMENT_CREATE_MESSAGE_PATTERN, 
+    DOCUMENT_GET_ALL_MESSAGE_PATTERN, 
+    DOCUMENT_GET_BY_ID_MESSAGE_PATTERN, 
+    DOCUMENT_GET_BY_ID_WITH_PARAGRAPHS_MESSAGE_PATTERN 
+} from '../../constants';
+
+@ApiTags('Documents api')
 @Controller('document')
 export class DocumentController {
 
@@ -8,27 +19,27 @@ export class DocumentController {
     
     @Post('/')
     createDocument(@Body() body) {
-        return this.client.send('document_create', body);
+        return sendRequestToMicroservice(this.client, DOCUMENT_CREATE_MESSAGE_PATTERN, body);
     }
 
     @Post('/:id')
     addParagraphToDocument(@Param('id') id, @Body() body) {
-        return this.client.send('document_add_paragraph', {...body, documentId: id});
+        return sendRequestToMicroservice(this.client, DOCUMENT_ADD_PARAGRAPH_MESSAGE_PATTERN, {...body, documentId: id});
     }
 
     @Get()
     getDocuments() {
-        return this.client.send('document_get_all', {});
+        return sendRequestToMicroservice(this.client, DOCUMENT_GET_ALL_MESSAGE_PATTERN, {});
     }
 
     @Get('/:id')
     getDocumentById(@Param('id') id) {
-        return this.client.send('document_get_by_id', id);
+        return sendRequestToMicroservice(this.client, DOCUMENT_GET_BY_ID_MESSAGE_PATTERN, id);
     }
 
     @Get('/:id/paragraphs')
     getDocumentWithParagraphsById(@Param('id') id) {
-        return this.client.send('document_get_by_id_with_paragraphs', id);
+        return sendRequestToMicroservice(this.client, DOCUMENT_GET_BY_ID_WITH_PARAGRAPHS_MESSAGE_PATTERN, id);
     }
 }
 

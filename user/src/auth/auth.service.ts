@@ -1,10 +1,10 @@
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { UserService } from '../user.service';
 import { validUser } from '../utils';
 import { ICreateUserDTO, IGetUserDTO } from '../dto/user';
-import { USER_ALREADY_EXIST_MESSAGE } from '../constants';
+import { USER_ALREADY_EXIST_MESSAGE, USER_UNAUTHORIZED_MESSAGE } from '../constants';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +22,11 @@ export class AuthService {
             return this.createUserToken(user)
         }
         catch(e) {
-            throw new UnauthorizedException(e.message);
+            return {
+                err: true,
+                message: USER_UNAUTHORIZED_MESSAGE,
+                status: HttpStatus.UNAUTHORIZED,
+            }
         }
     }
 
@@ -36,7 +40,11 @@ export class AuthService {
             return this.createUserToken(newUser)
         }
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+            return {
+                err: true,
+                message: e.message,
+                status: HttpStatus.BAD_REQUEST,
+            }
         }
     }
 

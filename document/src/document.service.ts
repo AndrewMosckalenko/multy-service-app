@@ -1,6 +1,6 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 
 import { Document } from './entities';
 import { ICreateDocumentDTO } from './dto/document';
@@ -22,7 +22,11 @@ export class DocumentService {
             return newDocument;
         }
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+            return {
+                err: true,
+                message: e.message,
+                status: HttpStatus.BAD_REQUEST,
+            }
         }
     }
 
@@ -31,7 +35,11 @@ export class DocumentService {
             return this.documentRepository.findOneBy({ id });
         }
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+            return {
+                err: true,
+                message: e.message,
+                status: HttpStatus.BAD_REQUEST,
+            }
         }
     }
 
@@ -49,7 +57,11 @@ export class DocumentService {
             return document;
         }   
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+            return {
+                err: true,
+                message: e.message,
+                status: HttpStatus.BAD_REQUEST,
+            }
         }
     }
 
@@ -58,7 +70,11 @@ export class DocumentService {
             return this.documentRepository.find();
         }   
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.INTERNAL_SERVER_ERROR);
+            return {
+                err: true,
+                message: e.message,
+                status: HttpStatus.BAD_REQUEST,
+            }
         }
     }
 }

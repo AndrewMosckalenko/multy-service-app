@@ -1,10 +1,9 @@
 import { Repository } from 'typeorm';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Paragraph } from '../entities';
 import { ICreateParagraphDTO } from '../dto/paragraph';
-import { DocumentService } from '../document.service';
 
 @Injectable()
 export class ParagraphService {
@@ -22,7 +21,11 @@ export class ParagraphService {
             return newParagraph;
         }
         catch(e) {
-            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+            return {
+                err: true,
+                message: e.message,
+                status: HttpStatus.BAD_REQUEST,
+            }
         }
     }
 }
