@@ -16,7 +16,7 @@ export class AuthService {
 
     async signIn({email, password} :IGetUserDTO) {
         try {
-            const user = await this.userService.getUserByEmail(email);
+            const user = await this.userService.getUserByEmailWithPassword(email);
             validUser(user, password);
 
             return this.createUserToken(user)
@@ -33,6 +33,7 @@ export class AuthService {
     async signUp(createUserDto: ICreateUserDTO) {
         try {
             const user = await this.userService.getUserByEmail(createUserDto.email);
+            console.log(user)
             if(user) { throw new Error(USER_ALREADY_EXIST_MESSAGE) }
 
             const newUser = await this.userService.createUser(createUserDto);

@@ -31,7 +31,16 @@ export class UserService {
     async getUserByEmail(email: string) {
         try {
             const user = await this.userRepository.findOneBy({ email });
-            return {...user, password: null };
+                return user ? {...user, password: null } : user;
+        }
+        catch(e) {
+            throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    getUserByEmailWithPassword(email: string) {
+        try {
+            return this.userRepository.findOneBy({ email });
         }
         catch(e) {
             throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
@@ -41,7 +50,7 @@ export class UserService {
     async getUserById(id: number) {
         try {
             const user = await this.userRepository.findOneBy({ id });
-            return { ...user, password: null };
+            return user ? {...user, password: null } : user;
         }
         catch(e) {
             throw new HttpException(e.message, HttpStatus.BAD_REQUEST); 

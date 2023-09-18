@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
-import { ICreateUserDTO, IGetUserDTO } from 'src/dto/user';
+import { ICreateUserDTO, IGetUserDTO } from '../dto/user';
 
 @Controller('auth')
 export class AuthController {
