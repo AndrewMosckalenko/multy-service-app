@@ -1,11 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
+import { User } from './entities/user.entity';
 import { ICreateUserDTO } from './dto/user';
 import { validateUserCreateDTO } from './utils';
-import { USER_ALREADY_EXIST_MESSAGE } from './constants';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UserService {
@@ -22,25 +21,27 @@ export class UserService {
             const user = await this.userRepository.create(newUser);
             await this.userRepository.save(user);
             
-            return user;
+            return { ...user, password: null };
         }
         catch(e) {
             throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
         }
     }
 
-    getUserByEmail(email: string) {
+    async getUserByEmail(email: string) {
         try {
-            return this.userRepository.findOneBy({ email });
+            const user = await this.userRepository.findOneBy({ email });
+            return {...user, password: null };
         }
         catch(e) {
             throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
         }
     }
 
-    getUserById(id: number) {
+    async getUserById(id: number) {
         try {
-            return this.userRepository.findOneBy({ id });
+            const user = await this.userRepository.findOneBy({ id });
+            return { ...user, password: null };
         }
         catch(e) {
             throw new HttpException(e.message, HttpStatus.BAD_REQUEST); 

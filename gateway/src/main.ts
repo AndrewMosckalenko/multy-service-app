@@ -8,7 +8,8 @@ const PORT = process.env.BACKEND_GATEWAY_PORT || 5000
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api')
-
+  app.enableCors();
+  
   const config = new DocumentBuilder()
     .setTitle('Multiservice app')
     .setDescription('The API of multiservice app')

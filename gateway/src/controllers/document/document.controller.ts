@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -10,8 +10,10 @@ import {
     DOCUMENT_GET_BY_ID_MESSAGE_PATTERN, 
     DOCUMENT_GET_BY_ID_WITH_PARAGRAPHS_MESSAGE_PATTERN 
 } from '../../constants';
+import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 
 @ApiTags('Documents api')
+@UseGuards(JwtAuthGuard)
 @Controller('document')
 export class DocumentController {
 
