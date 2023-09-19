@@ -5,7 +5,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import { ICreateDocumentDTO } from './dto/document';
 import { ICreateParagraphDTO } from './dto/paragraph';
 
-@Controller('document')
+@Controller('documents')
 export class DocumentController {
 
     constructor(

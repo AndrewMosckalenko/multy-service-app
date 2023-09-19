@@ -19,7 +19,7 @@ export class DocumentController {
 
     constructor(@Inject('DOCUMENT_SERVICE') private client: ClientProxy) {}
     
-    @Post('/')
+    @Post()
     createDocument(@Body() body) {
         return sendRequestToMicroservice(this.client, DOCUMENT_CREATE_MESSAGE_PATTERN, body);
     }
