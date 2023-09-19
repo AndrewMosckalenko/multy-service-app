@@ -3,7 +3,7 @@ import { MessagePattern } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
 import { ICreateUserDTO, IGetUserDTO } from '../dto/user';
 
-@Controller('auth')
+@Controller()
 export class AuthController {
 
     constructor(

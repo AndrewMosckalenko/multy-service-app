@@ -2,7 +2,7 @@ import { Controller } from '@nestjs/common';
 import { UserService } from './user.service';
 import { MessagePattern } from '@nestjs/microservices';
 
-@Controller('user')
+@Controller()
 export class UserController {
 
     constructor(
@@ -11,6 +11,7 @@ export class UserController {
 
     @MessagePattern('user_by_email')
     signIn(email: string) {
+        console.log(3)
         return this.userService.getUserByEmail(email);
     }
 }

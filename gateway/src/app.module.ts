@@ -5,9 +5,20 @@ import { DocumentController } from './controllers/document/document.controller';
 import { documentTcpProvider, userTcpProvider } from './tcp-client-providers';
 import { JwtModule } from '@nestjs/jwt';
 import { AuthStrategy } from './auth/auth.strategy';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
+    ClientsModule.register([
+      { name: 'USER_SERVICE', transport: Transport.TCP, options: {
+        host: process.env.BACKEND_USER_HOST,
+        port: Number(process.env.BACKEND_USER_PORT),
+      }, },
+      { name: 'DOCUMENT_SERVICE', transport: Transport.TCP, options: {
+        host: process.env.BACKEND_DOCUMENT_HOST,
+        port: Number(process.env.BACKEND_DOCUMENT_PORT),
+      }, },
+    ]),
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
@@ -15,8 +26,6 @@ import { AuthStrategy } from './auth/auth.strategy';
     }),],
   controllers: [UserController, DocumentController],
   providers: [
-    userTcpProvider,
-    documentTcpProvider,
     AuthStrategy,
   ],
 })

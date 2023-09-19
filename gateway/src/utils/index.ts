@@ -1,12 +1,10 @@
 import { HttpException } from "@nestjs/common";
 import { ClientProxy } from "@nestjs/microservices";
-import { firstValueFrom } from "rxjs";
 
 export async function sendRequestToMicroservice(client: ClientProxy, messagePattern: string, data) {
-    const res = await client.send(messagePattern, data);
-    const resData = await firstValueFrom(res);
+    const res = await(client.send(messagePattern, data)).toPromise();
 
-    if(resData.err) { throw new HttpException(resData.message, resData.status ); }
+    if(res.err) { throw new HttpException(res.message, res.status ); }
 
     return res
 }
