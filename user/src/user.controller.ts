@@ -11,7 +11,6 @@ export class UserController {
 
     @MessagePattern('user_by_email')
     signIn(email: string) {
-        console.log(3)
         return this.userService.getUserByEmail(email);
     }
 }

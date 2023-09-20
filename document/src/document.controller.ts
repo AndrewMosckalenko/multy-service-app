@@ -15,7 +15,6 @@ export class DocumentController {
 
     @MessagePattern('document_create')
     createDocument(createDocumentDto: ICreateDocumentDTO) {
-        console.log(1)
         return this.documentService.createDocument(createDocumentDto);
     }
 
@@ -36,7 +35,6 @@ export class DocumentController {
 
     @MessagePattern('document_get_all')
     getAllDocuments() {
-        console.log(2)
         return this.documentService.getDocuments();
     }
 }

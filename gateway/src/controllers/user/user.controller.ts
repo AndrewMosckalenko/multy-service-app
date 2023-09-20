@@ -12,9 +12,9 @@ export class UserController {
 
     constructor(@Inject('USER_SERVICE') private client: ClientProxy) {}
 
-    @Get('/sign-in')
-    signIn(@Query() query) {
-        return sendRequestToMicroservice(this.client, USER_SIGN_IN_MESSAGE_PATTERN, query);
+    @Post('/sign-in')
+    signIn(@Body() body) {
+        return sendRequestToMicroservice(this.client, USER_SIGN_IN_MESSAGE_PATTERN, body);
     }
 
     @Get('/whoami')
