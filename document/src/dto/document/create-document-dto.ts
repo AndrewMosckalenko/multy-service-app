@@ -1,3 +1,3 @@
 export interface ICreateDocumentDTO {
-    name: string;
+  name: string;
 }

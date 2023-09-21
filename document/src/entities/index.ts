@@ -1,2 +1,2 @@
-export { Paragraph } from './paragraph.entity';
-export { Document } from './document.entity';
+export * from './paragraph.entity';
+export * from './document.entity';

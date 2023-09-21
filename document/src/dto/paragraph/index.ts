@@ -1,1 +1,2 @@
-export { ICreateParagraphDTO } from './create-paragraph-dto';
+export * from './create-paragraph-dto';
+export * from './update-paragraph-dto';
