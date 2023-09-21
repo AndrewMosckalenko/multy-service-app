@@ -1,11 +1,2 @@
-export {
-    USER_SIGN_IN_MESSAGE_PATTERN,
-    USER_SIGN_UP_MESSAGE_PATTERN,
-    USER_GET_BY_EMAIL,
-
-    DOCUMENT_ADD_PARAGRAPH_MESSAGE_PATTERN, 
-    DOCUMENT_CREATE_MESSAGE_PATTERN, 
-    DOCUMENT_GET_ALL_MESSAGE_PATTERN, 
-    DOCUMENT_GET_BY_ID_MESSAGE_PATTERN, 
-    DOCUMENT_GET_BY_ID_WITH_PARAGRAPHS_MESSAGE_PATTERN 
- } from './message-patterns'
+export * from './message-pattern/user';
+export * from './message-pattern/document';

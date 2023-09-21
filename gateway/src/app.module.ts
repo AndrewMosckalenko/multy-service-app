@@ -10,23 +10,30 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 @Module({
   imports: [
     ClientsModule.register([
-      { name: 'USER_SERVICE', transport: Transport.TCP, options: {
-        host: process.env.BACKEND_USER_HOST,
-        port: Number(process.env.BACKEND_USER_PORT),
-      }, },
-      { name: 'DOCUMENT_SERVICE', transport: Transport.TCP, options: {
-        host: process.env.BACKEND_DOCUMENT_HOST,
-        port: Number(process.env.BACKEND_DOCUMENT_PORT),
-      }, },
+      {
+        name: 'USER_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: process.env.BACKEND_USER_HOST,
+          port: Number(process.env.BACKEND_USER_PORT),
+        },
+      },
+      {
+        name: 'DOCUMENT_SERVICE',
+        transport: Transport.TCP,
+        options: {
+          host: process.env.BACKEND_DOCUMENT_HOST,
+          port: Number(process.env.BACKEND_DOCUMENT_PORT),
+        },
+      },
     ]),
     JwtModule.register({
       global: true,
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: process.env.JWT_EXPIRE },
-    }),],
-  controllers: [UserController, DocumentController],
-  providers: [
-    AuthStrategy,
+    }),
   ],
+  controllers: [UserController, DocumentController],
+  providers: [AuthStrategy],
 })
 export class AppModule {}
