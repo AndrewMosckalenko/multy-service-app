@@ -5,18 +5,15 @@ import { ICreateUserDTO, IGetUserDTO } from '../dto/user';
 
 @Controller()
 export class AuthController {
+  constructor(private authService: AuthService) {}
 
-    constructor(
-        private authService: AuthService,
-    ) {}
+  @MessagePattern('user_auth_sign_in')
+  signIn(getUserDto: IGetUserDTO) {
+    return this.authService.signIn(getUserDto);
+  }
 
-    @MessagePattern('user_auth_sign_in')
-    signIn(getUserDto: IGetUserDTO) {
-        return this.authService.signIn(getUserDto);
-    }
-
-    @MessagePattern('user_auth_sign_up')
-    signUp(createUserDto: ICreateUserDTO) {
-        return this.authService.signUp(createUserDto);
-    }
+  @MessagePattern('user_auth_sign_up')
+  signUp(createUserDto: ICreateUserDTO) {
+    return this.authService.signUp(createUserDto);
+  }
 }

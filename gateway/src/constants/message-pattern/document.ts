@@ -10,3 +10,5 @@ export const DOCUMENT_DELETE_PARAGRAPH_MESSAGE_PATTERN =
 export const DOCUMENT_UPDATE_MESSAGE_PATTERN = 'document_update';
 export const DOCUMENT_UPDATE_PARAGRAPH_MESSAGE_PATTERN =
   'document_update_paragraph';
+export const DOCUMENT_CREATE_TAG_MESSAGE_PATTERN = 'document_create_tag';
+export const DOCUMENT_DELETE_TAG_MESSAGE_PATTERN = 'document_delete_tag';

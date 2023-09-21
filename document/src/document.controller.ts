@@ -8,20 +8,25 @@ import { ICreateParagraphDTO, IUpdateParagraphDTO } from './dto/paragraph';
 import {
   DOCUMENT_ADD_PARAGRAPH_MESSAGE_PATTERN,
   DOCUMENT_CREATE_MESSAGE_PATTERN,
+  DOCUMENT_CREATE_TAG_MESSAGE_PATTERN,
   DOCUMENT_DELETE_MESSAGE_PATTERN,
   DOCUMENT_DELETE_PARAGRAPH_MESSAGE_PATTERN,
+  DOCUMENT_DELETE_TAG_MESSAGE_PATTERN,
   DOCUMENT_GET_ALL_MESSAGE_PATTERN,
   DOCUMENT_GET_BY_ID_MESSAGE_PATTERN,
   DOCUMENT_GET_BY_ID_WITH_PARAGRAPHS_MESSAGE_PATTERN,
   DOCUMENT_UPDATE_MESSAGE_PATTERN,
   DOCUMENT_UPDATE_PARAGRAPH_MESSAGE_PATTERN,
 } from './constants';
+import { ICreateTagDTO } from './dto/tag/create-tag-dto';
+import { TagService } from './tag/tag.service';
 
 @Controller()
 export class DocumentController {
   constructor(
     private readonly documentService: DocumentService,
     private readonly paragraphService: ParagraphService,
+    private readonly tagService: TagService,
   ) {}
 
   @MessagePattern(DOCUMENT_CREATE_MESSAGE_PATTERN)
@@ -60,12 +65,28 @@ export class DocumentController {
   }
 
   @MessagePattern(DOCUMENT_UPDATE_MESSAGE_PATTERN)
-  updateDocument(id: number, updateDocumentDto: IUpdateDocumentDTO) {
-    return this.documentService.updateDocument(id, updateDocumentDto);
+  updateDocument(updateDocumentDto: IUpdateDocumentDTO) {
+    return this.documentService.updateDocument(
+      updateDocumentDto.id,
+      updateDocumentDto,
+    );
   }
 
   @MessagePattern(DOCUMENT_UPDATE_PARAGRAPH_MESSAGE_PATTERN)
-  updateParagraph(id: number, updateParagraphDto: IUpdateParagraphDTO) {
-    return this.paragraphService.updateParagraph(id, updateParagraphDto);
+  updateParagraph(updateParagraphDto: IUpdateParagraphDTO) {
+    return this.paragraphService.updateParagraph(
+      updateParagraphDto.id,
+      updateParagraphDto,
+    );
+  }
+
+  @MessagePattern(DOCUMENT_CREATE_TAG_MESSAGE_PATTERN)
+  createTag(createTagDto: ICreateTagDTO) {
+    return this.tagService.createTag(createTagDto.id, createTagDto);
+  }
+
+  @MessagePattern(DOCUMENT_DELETE_TAG_MESSAGE_PATTERN)
+  deleteTag(id: number) {
+    return this.tagService.deleteTag(id);
   }
 }

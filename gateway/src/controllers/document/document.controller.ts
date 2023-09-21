@@ -17,8 +17,10 @@ import { sendRequestToMicroservice } from '../../utils';
 import {
   DOCUMENT_ADD_PARAGRAPH_MESSAGE_PATTERN,
   DOCUMENT_CREATE_MESSAGE_PATTERN,
+  DOCUMENT_CREATE_TAG_MESSAGE_PATTERN,
   DOCUMENT_DELETE_MESSAGE_PATTERN,
   DOCUMENT_DELETE_PARAGRAPH_MESSAGE_PATTERN,
+  DOCUMENT_DELETE_TAG_MESSAGE_PATTERN,
   DOCUMENT_GET_ALL_MESSAGE_PATTERN,
   DOCUMENT_GET_BY_ID_MESSAGE_PATTERN,
   DOCUMENT_GET_BY_ID_WITH_PARAGRAPHS_MESSAGE_PATTERN,
@@ -116,6 +118,24 @@ export class DocumentController {
       this.client,
       DOCUMENT_UPDATE_PARAGRAPH_MESSAGE_PATTERN,
       { id, ...body },
+    );
+  }
+
+  @Post('/:id/tag')
+  createTag(@Param('id', ParseIntPipe) id: number, @Body() body) {
+    return sendRequestToMicroservice(
+      this.client,
+      DOCUMENT_CREATE_TAG_MESSAGE_PATTERN,
+      { id, ...body },
+    );
+  }
+
+  @Delete('/:id/tag')
+  deleteTag(@Param('id', ParseIntPipe) id: number) {
+    return sendRequestToMicroservice(
+      this.client,
+      DOCUMENT_DELETE_TAG_MESSAGE_PATTERN,
+      id,
     );
   }
 }

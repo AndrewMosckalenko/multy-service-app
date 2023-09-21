@@ -1,26 +1,23 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 export interface IUser {
-    id: number;
-    email: string;
-    name: string;
-    password: string;
+  id: number;
+  email: string;
+  name: string;
+  password: string;
 }
 
 @Entity('users')
 export class User implements IUser {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @Column({ unique: true, nullable: false })
+  email: string;
 
-    @Column({unique: true, nullable: false})
-    email: string;
+  @Column({ unique: true })
+  name: string;
 
-    @Column({unique: true})
-    name: string;
-
-    @Column()
-    password: string;
-    
+  @Column()
+  password: string;
 }
-

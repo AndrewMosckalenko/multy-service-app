@@ -10,15 +10,16 @@ import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-    imports: [
-        TypeOrmModule.forRoot(postgresOptions), 
-        TypeOrmModule.forFeature([User]),
-        JwtModule.register({
-            global: true,
-            secret: process.env.JWT_SECRET,
-            signOptions: { expiresIn: process.env.JWT_EXPIRE },
-          }),],
-    controllers: [UserController, AuthController],
-    providers: [UserService, AuthService],
+  imports: [
+    TypeOrmModule.forRoot(postgresOptions),
+    TypeOrmModule.forFeature([User]),
+    JwtModule.register({
+      global: true,
+      secret: process.env.JWT_SECRET,
+      signOptions: { expiresIn: process.env.JWT_EXPIRE },
+    }),
+  ],
+  controllers: [UserController, AuthController],
+  providers: [UserService, AuthService],
 })
 export class UserModule {}

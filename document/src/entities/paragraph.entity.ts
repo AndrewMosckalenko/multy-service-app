@@ -1,5 +1,12 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Document } from './document.entity';
+import { Tag } from './tag.entity';
 
 export interface IParagraph {
   id: number;
@@ -7,6 +14,7 @@ export interface IParagraph {
   content: string;
   type: number;
   document: Document;
+  tags: Tag[];
 }
 
 export enum ParagraphType {
@@ -32,4 +40,7 @@ export class Paragraph implements IParagraph {
 
   @ManyToOne(() => Document, (document: Document) => document.paragraphs)
   document: Document;
+
+  @OneToMany(() => Tag, (tag: Tag) => tag.paragraph)
+  tags: Tag[];
 }

@@ -8,7 +8,7 @@ export async function sendRequestToMicroservice<DataType>(
 ) {
   const res = await client.send(messagePattern, data).toPromise();
 
-  if (res.err) {
+  if (res?.error) {
     throw new HttpException(res.message, res.status);
   }
 
