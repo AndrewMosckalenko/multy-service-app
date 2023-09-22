@@ -14,10 +14,11 @@ async function bootstrap() {
     .setTitle('Multiservice app')
     .setDescription('The API of multiservice app')
     .setVersion('1.0')
+    .addBearerAuth()
     .addTag('')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api-config', app, document);
+  SwaggerModule.setup('doc', app, document);
 
   await app.listen(PORT, () => {
     console.log(`GATEWAY service started on http://localhost:${PORT}`);

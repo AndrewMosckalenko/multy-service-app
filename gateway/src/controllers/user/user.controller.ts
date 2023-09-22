@@ -17,7 +17,7 @@ import {
   USER_GET_BY_EMAIL,
 } from '../../constants';
 import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
-import { IUserSignIn, IUserSignUp } from '../../intefaces';
+import { UserSignIn, UserSignUp } from '../../dto';
 
 @ApiTags('Users api')
 @Controller('user')
@@ -25,8 +25,8 @@ export class UserController {
   constructor(@Inject('USER_SERVICE') private client: ClientProxy) {}
 
   @Post('/sign-in')
-  signIn(@Body() body: IUserSignIn) {
-    return sendRequestToMicroservice<IUserSignIn>(
+  signIn(@Body() body: UserSignIn) {
+    return sendRequestToMicroservice<UserSignIn>(
       this.client,
       USER_SIGN_IN_MESSAGE_PATTERN,
       body,
@@ -44,8 +44,8 @@ export class UserController {
   }
 
   @Post('/sign-up')
-  signUp(@Body() body: IUserSignUp) {
-    return sendRequestToMicroservice<IUserSignUp>(
+  signUp(@Body() body: UserSignUp) {
+    return sendRequestToMicroservice<UserSignUp>(
       this.client,
       USER_SIGN_UP_MESSAGE_PATTERN,
       body,

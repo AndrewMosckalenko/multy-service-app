@@ -44,12 +44,7 @@ export class DocumentService {
   ): Promise<IDocument | IErrorMessage> {
     try {
       const document = await this.documentRepository.findOne({
-        join: {
-          alias: 'document',
-          leftJoinAndSelect: {
-            paragraph: 'document.paragraphs',
-          },
-        },
+        relations: { paragraphs: { tags: true }},
         where: { id },
       });
       return document;

@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { sendRequestToMicroservice } from '../../utils';
 import {
@@ -29,20 +29,25 @@ import {
 } from '../../constants';
 import { JwtAuthGuard } from '../../guards/jwt-auth.guard';
 import {
-  ICreateDocumentDTO,
-  ICreateParagraphDTO,
-  IGetDocumentsDTO,
-} from '../../intefaces';
+  CreateDocumentDTO,
+  CreateParagraphDTO,
+  CreateTagDTO,
+  GetDocumentsDTO,
+  UpdateDocumentDTO,
+  UpdateParagraphDTO,
+} from '../../dto';
+
 
 @ApiTags('Documents api')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller('document')
 export class DocumentController {
   constructor(@Inject('DOCUMENT_SERVICE') private client: ClientProxy) {}
 
   @Post()
-  createDocument(@Body() body: ICreateDocumentDTO) {
-    return sendRequestToMicroservice<ICreateDocumentDTO>(
+  createDocument(@Body() body: CreateDocumentDTO) {
+    return sendRequestToMicroservice<CreateDocumentDTO>(
       this.client,
       DOCUMENT_CREATE_MESSAGE_PATTERN,
       body,
@@ -50,8 +55,8 @@ export class DocumentController {
   }
 
   @Post('/:id')
-  addParagraphToDocument(@Param('id', ParseIntPipe) id, @Body() body) {
-    return sendRequestToMicroservice<ICreateParagraphDTO>(
+  addParagraphToDocument(@Param('id', ParseIntPipe) id: number, @Body() body: CreateParagraphDTO) {
+    return sendRequestToMicroservice<CreateParagraphDTO>(
       this.client,
       DOCUMENT_ADD_PARAGRAPH_MESSAGE_PATTERN,
       { ...body, documentId: id },
@@ -60,7 +65,7 @@ export class DocumentController {
 
   @Get()
   getDocuments() {
-    return sendRequestToMicroservice<IGetDocumentsDTO>(
+    return sendRequestToMicroservice<GetDocumentsDTO>(
       this.client,
       DOCUMENT_GET_ALL_MESSAGE_PATTERN,
       {},
@@ -104,7 +109,7 @@ export class DocumentController {
   }
 
   @Patch('/:id')
-  updateDocument(@Param('id', ParseIntPipe) id: number, @Body() body) {
+  updateDocument(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateDocumentDTO) {
     return sendRequestToMicroservice(
       this.client,
       DOCUMENT_UPDATE_MESSAGE_PATTERN,
@@ -113,7 +118,7 @@ export class DocumentController {
   }
 
   @Patch('/paragraph/:id')
-  updateParagraph(@Param('id', ParseIntPipe) id: number, @Body() body) {
+  updateParagraph(@Param('id', ParseIntPipe) id: number, @Body() body: UpdateParagraphDTO) {
     return sendRequestToMicroservice(
       this.client,
       DOCUMENT_UPDATE_PARAGRAPH_MESSAGE_PATTERN,
@@ -122,7 +127,7 @@ export class DocumentController {
   }
 
   @Post('/:id/tag')
-  createTag(@Param('id', ParseIntPipe) id: number, @Body() body) {
+  createTag(@Param('id', ParseIntPipe) id: number, @Body() body: CreateTagDTO) {
     return sendRequestToMicroservice(
       this.client,
       DOCUMENT_CREATE_TAG_MESSAGE_PATTERN,

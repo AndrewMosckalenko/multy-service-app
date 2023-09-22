@@ -1,7 +1,5 @@
 FROM node:18
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
-CMD [ "node", "dist/main.js" ]
+WORKDIR /user
+COPY ./ /user/
+RUN cd /user && npm install && npm run build
+CMD [ "npm", "run", "start:user" ]

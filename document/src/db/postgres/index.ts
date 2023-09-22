@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import { Paragraph, Document } from '../../entities';
+import { Paragraph, Document, Tag } from '../../entities';
 
 export const postgresOptions: TypeOrmModuleOptions = {
   type: 'postgres',
@@ -9,6 +9,6 @@ export const postgresOptions: TypeOrmModuleOptions = {
   username: process.env.POSTGRES_DB_USER,
   password: process.env.POSTGRES_DB_PASS,
   database: process.env.POSTGRES_DB_NAME,
-  entities: [Paragraph, Document],
+  entities: [Paragraph, Document, Tag],
   synchronize: true,
 };

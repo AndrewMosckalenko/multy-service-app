@@ -24,6 +24,8 @@ services:
       - postgres
     networks:
       - backend
+    volumes:
+      - .:/gateway
   user:
     container_name: "user"
     hostname: user
@@ -35,6 +37,8 @@ services:
       - postgres
     networks:
       - backend
+    volumes:
+      - .:/user
   document:
     container_name: "document"
     hostname: document
@@ -46,7 +50,10 @@ services:
       - postgres
     networks:
       - backend
+    volumes:
+      - .:/document
 
 networks:
   backend:
     driver: bridge
+

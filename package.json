@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "docker-compose up --build"
+    "start:dev": "docker-compose up --build",
+    "start:gt": "cd ./gateway && npm run start",
+    "start:doc": "cd ./document && npm run start",
+    "start:user": "cd ./user && npm run start"
   },
   "author": "Andrew (Satchi)",
   "license": "ISC"
